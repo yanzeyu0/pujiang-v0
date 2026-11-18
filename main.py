@@ -19,6 +19,7 @@
   5. 横竖屏切换界面是否自适应
 """
 
+import os
 import kivy
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
@@ -28,11 +29,25 @@ from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.scrollview import ScrollView
 from kivy.core.window import Window
+from kivy.core.text import LabelBase
 from kivy.metrics import dp
 from kivy.utils import platform
 from kivy.graphics import Color, Rectangle
 
 kivy.require('2.0.0')
+
+# 注册中文字体为全局默认字体，解决 Kivy 默认字体不含中文导致乱码的问题。
+# 字体文件 chinese_font.ttf 随 APK 一起打包（buildozer.spec 已含 ttf 扩展）。
+_FONT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                          'chinese_font.ttf')
+if os.path.exists(_FONT_PATH):
+    LabelBase.register(name='Roboto', fn_regular=_FONT_PATH)
+    LabelBase.register(name='RobotoItalic', fn_regular=_FONT_PATH)
+    LabelBase.register(name='RobotoMedium', fn_regular=_FONT_PATH)
+    LabelBase.register(name='RobotoMediumItalic', fn_regular=_FONT_PATH)
+    LabelBase.register(name='RobotoBold', fn_regular=_FONT_PATH)
+    LabelBase.register(name='RobotoBoldItalic', fn_regular=_FONT_PATH)
+    LabelBase.register(name='DejaVuSans', fn_regular=_FONT_PATH)
 
 
 class ColorBand(Widget):
