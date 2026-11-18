@@ -20,11 +20,17 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       - name: Install system deps
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
-            git zip unzip openjdk-17-jdk-headless python3-pip \
+            git zip unzip python3-pip \
             autoconf libtool pkg-config zlib1g-dev libncurses5-dev \
             libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev \
             build-essential
@@ -39,6 +45,8 @@ jobs:
       - name: Build APK
         run: |
           cd "$GITHUB_WORKSPACE"
+          echo "JAVA_HOME=$JAVA_HOME"
+          java -version
           buildozer -v android debug
 
       - name: Upload APK
