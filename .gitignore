@@ -1,0 +1,11 @@
+# 本地工具链和产物，不上传
+toolchain/
+dist/
+bin/
+.buildozer/
+*.apk
+*.zip
+
+# Python 缓存
+__pycache__/
+*.pyc
